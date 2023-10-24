@@ -1,0 +1,37 @@
+doctype html
+html(lang="es")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Credenciales
+        link(rel="stylesheet", href="/css/bootstrap.css")
+        script(src="/js/bootstrap.bundle.js")
+        script(src="/js/pooper.min.js")
+        
+    body        
+        h1.text-center=pagina
+            div(class="row justify-content-center")
+                if errores
+                    div(class="row justify-content-center text-bg-danger" )
+                        div(class="col-md-5")
+                            each er in errores
+                                h1(class="fw-bold fs-6")=er.msg
+                div(class="col-md-5")
+                    form(class="space-y-5" action="/cred/credenciales" method="POST" noValidate)
+                        input(type="hidden" name="_csrf" value=csrf)
+                        br
+                        br
+                        div(class="mb-1")
+                            label(for="usuario" class="form-label") Usuario (correo electornico)
+                            input#correo(class="form-control" type="text" placeHolder="demo@demo.com" name="correo")
+                        div(class="mb-1")
+                            label(for="clave" class="form-label") Clave
+                            input#clave(class="form-control" type="password" placeHolder="Clave" name="password")
+                        div(class="mb-1")
+                            button(type="submit" class="btn btn-primary col-auto") Enviar
+                        div(class="mb-4")
+                            h6
+                                a(class="icon-link" href="/cred/registrar") Crear Registro
+                                |&nbsp; &nbsp; &nbsp;
+                                a(class="icon-link" href="/cred/registrar") Olvide Password
+                                

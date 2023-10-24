@@ -1,0 +1,58 @@
+extends ../../layout/index
+block cuerpocontenido
+    h1(class="text-center")=pagina
+     if errores
+        div(class="row justify-content-center text-bg-danger" )
+            div(class="col-md-4")
+                each er in errores
+                    h1(class="fw-bold fs-6")=er.msg
+    if(vista)        
+        div(class="row justify-content-center")
+            div(class="col-md-5")
+                form(class="space-y-5" action="/hotel/gerente/buscarHotelGerente" method="POST" noValidate)
+                    input(type="hidden" name="_csrf" value=csrf)
+                    div(class="mb-1")
+                        label(for="nombre" class="form-label") Nombre del Hotel
+                        input#nombre(class="form-control" type="text" placeHolder="Nombre del Hotel" name="nombre" value= nombre?nombre:'')
+                    div(class="mb-1")
+                        button(type="submit" class="btn btn-primary col-auto") Enviar
+    if(info)
+        table(class="table")
+            thread
+                th(scope="col") Nombre
+                th(scope="col") Apellido Paterno
+                th(scope="col") Apellido Materno
+                th(scope="col") Telefono 
+                th(scope="col") Hotel
+                th(scope="col") Accion
+            tbody 
+                each i in info 
+                    tr
+                        th(scope="row") #{i.gerente.nombre}
+                        td #{i.gerente.ap_paterno}
+                        td #{i.gerente.ap_materno}
+                        td #{i.gerente.telefono}
+                        td #{i.nombre}
+                        td 
+                            a(href=`/hotel/gerente/llenarFormulario?id=${i.gerente.id_grt}` class='btn btn-danger btn-clock') Modificar
+    if(valores)
+        div(class="row justify-content-center")
+            div(class="col-md-5")
+                form(class="space-y-5" action="/hotel/gerente/accionModificar" method="POST" noValidate)
+                    input(type="hidden" name="_csrf" value=csrf)
+                    input#idgerente(type="hidden" name="id_g" value=valores?valores.id_grt:'')
+                    div(class="mb-1")
+                        label(for="nombre" class="form-label") Nombre
+                        input#nombre(class="form-control" type="text" placeHolder="Nombre del Gerente" name="nombre" value= valores?valores.nombre:'')
+                    div(class="mb-1")
+                        label(for="apaterno" class="form-label") Apellido Paterno
+                        input#apaterno(class="form-control" type="text" placeHolder="Apellido Paterno" name="ap_paterno" value=valores?valores.aPaterno:'')
+                    div(class="mb-1")
+                        label(for="amaterno" class="form-label") Apellido Materno
+                        input#amaterno(class="form-control" type="text" placeHolder="Apellido Materno" name="ap_materno" value=valores?valores.aMaterno:'')
+                    div(class="mb-1")
+                        label(for="telefono" class="form-label") Telefono
+                        input#telefono(class="form-control" type="text" placeHolder="Telefono" name="telefono" value=valores?valores.telef:'')
+                    div(class="mb-1")
+                        button(type="submit" class="btn btn-primary col-auto") Enviar
+                    

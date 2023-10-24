@@ -1,0 +1,18 @@
+extends ../../layout/index
+block cuerpocontenido
+    h1(class="text-center")=pagina
+    div(class="row justify-content-center")
+         each g in gerente
+            div(class="col")
+                div(class="card")
+                    img(src="/img/imagen_gerente.jpg",class="card-img-top")
+                    div(class="card-body align-self-center")
+                        h6=`Nombre:${g.nombre}`
+                        h6=`Apellido Paterno:${g.ap_paterno}`
+                        h6=`Apellido Materno:${g.ap_materno}`
+                        h6=`Telefono:${g.telefono}`
+                        h6=`Nombre del Hotel:${g.hotele.nombre}`
+                        
+               
+
+

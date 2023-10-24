@@ -1,0 +1,30 @@
+extends ../../layout/index
+block cuerpocontenido
+    h1(class="text-center")=pagina
+     if errores
+        div(class="row justify-content-center text-bg-danger" )
+            div(class="col-md-4")
+                each er in errores
+                    h1(class="fw-bold fs-6")=er.msg
+    div(class="row justify-content-center")
+        div(class="col-md-5")
+            form(class="space-y-5" action="/hotel/gerente/buscarGerenteHotel" method="POST" noValidate)
+                input(type="hidden" name="_csrf" value=csrf)
+                div(class="mb-1")
+                    label(for="nombre" class="form-label") Nombre del Hotel
+                    input#nombre(class="form-control" type="text" placeHolder="Nombre del Hotel" name="nombre" value= nombre?nombre:'')
+                div(class="mb-1")
+                    button(type="submit" class="btn btn-primary col-auto") Enviar
+        if(gr)
+            each g in gr
+                div(class="card col-md-2")
+                    img(src="/img/imagen_gerente.jpg",class="card-img-top")
+                    div(class="card-body align-self-center")
+                        h6=`Nombre:${g.gerente.nombre}`
+                        h6=`Apellido Paterno:${g.gerente.ap_paterno}`
+                        h6=`Apellido Materno:${g.gerente.ap_materno}`
+                        h6=`Telefono:${g.gerente.telefono}`
+                    blockquote
+                        if(g.gerente.nombre)
+                            a(href=`/hotel/gerente/eliminarGerente?id=${g.gerente.id_grt}` class='btn btn-danger btn-clock') Eliminar
+                
